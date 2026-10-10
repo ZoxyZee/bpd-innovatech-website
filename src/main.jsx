@@ -62,7 +62,7 @@ function Header() {
         <a href="#contact" onClick={close}>Contact</a>
       </nav>
       <div className="nav-actions">
-        <a className="nav-phone" href={`tel:${PHONE}`}>Call <span>{DISPLAY_PHONE}</span></a>
+        <a className="nav-phone" href={`tel:${PHONE}`}>Call us <span>{DISPLAY_PHONE}</span></a>
         <a className="nav-cta" href={waUrl()} target="_blank" rel="noreferrer">Discuss a project <Arrow /></a>
       </div>
       <button className={open ? 'menu active' : 'menu'} onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}><span/><span/></button>
