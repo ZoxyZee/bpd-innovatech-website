@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
-import logo from './assets/logo-source.png';
-import pointGrinding from './assets/point-grinding-cell.jpg';
-import annealing from './assets/end-annealing-setup.jpg';
+import logo from './assets/logo-source-machine.png';
+import pointGrinding from './assets/point-grinding-cell-machine.jpg';
+import annealing from './assets/end-annealing-setup-machine.jpg';
 import hmiMachine from './assets/hmi-control-machine.jpg';
-import fixtureBench from './assets/fixture-test-bench.jpg';
+import fixtureBench from './assets/fixture-test-bench-machine.jpg';
 import walkthrough from './assets/machine-walkthrough.mp4';
 import machineMotion from './assets/machine-motion.mp4';
 
