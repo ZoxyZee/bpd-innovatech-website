@@ -41,25 +41,48 @@ function Arrow() {
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('');
+  const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const close = () => setOpen(false);
 
   useEffect(() => {
     const onKey = (event) => event.key === 'Escape' && setOpen(false);
+    const sectionIds = ['capabilities', 'projects', 'process', 'contact'];
+    const onScroll = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(y > 18);
+      setProgress(max > 0 ? Math.min(100, (y / max) * 100) : 0);
+      let current = '';
+      sectionIds.forEach(id => {
+        const section = document.getElementById(id);
+        if (section && section.getBoundingClientRect().top <= 150) current = id;
+      });
+      setActive(current);
+    };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
-  return <header className="nav">
+  const navLink = (id, label) => <a className={active === id ? 'active' : ''} href={`#${id}`} onClick={close} aria-current={active === id ? 'location' : undefined}>{label}</a>;
+
+  return <header className={scrolled ? 'nav scrolled' : 'nav'}>
     <div className="nav-inner">
       <a className="brand" href="#top" onClick={close} aria-label="BPD Innovatech home">
         <img src={logo} alt="" />
         <span><strong>BPD INNOVATECH</strong><small>INNOVATION FOR EXCELLENCE</small></span>
       </a>
       <nav className={open ? 'desktop-nav open' : 'desktop-nav'} aria-label="Primary navigation">
-        <a href="#capabilities" onClick={close}>Capabilities</a>
-        <a href="#projects" onClick={close}>Machine work</a>
-        <a href="#process" onClick={close}>Process</a>
-        <a href="#contact" onClick={close}>Contact</a>
+        {navLink('capabilities', 'Capabilities')}
+        {navLink('projects', 'Machine work')}
+        {navLink('process', 'Process')}
+        {navLink('contact', 'Contact')}
       </nav>
       <div className="nav-actions">
         <a className="nav-phone" href={`tel:${PHONE}`}>Call us <span>{DISPLAY_PHONE}</span></a>
@@ -67,6 +90,7 @@ function Header() {
       </div>
       <button className={open ? 'menu active' : 'menu'} onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}><span/><span/></button>
     </div>
+    <span className="scroll-progress" style={{ width: `${progress}%` }} aria-hidden="true"/>
   </header>;
 }
 
@@ -133,7 +157,10 @@ function Projects() {
 }
 
 function Statement() {
-  return <section className="statement"><div className="statement-inner"><span className="section-label">ENGINEERING PRINCIPLE</span><h2>Build around the process.<br/><em>Not around the brochure.</em></h2><p>Good automation makes the operator’s job clearer, the process more repeatable and the machine easier to support.</p><div className="statement-rule"><span>PROCESS FIRST</span><span>PRACTICAL CONTROLS</span><span>SERVICEABLE DESIGN</span></div></div></section>;
+  return <section className="statement"><div className="statement-inner">
+    <div className="statement-copy"><span className="section-label">ENGINEERING PRINCIPLE</span><h2>Build around the process.<br/><em>Not around the brochure.</em></h2><p>Good automation makes the operator’s job clearer, the process more repeatable and the machine easier to support.</p><div className="statement-rule"><span>PROCESS FIRST</span><span>PRACTICAL CONTROLS</span><span>SERVICEABLE DESIGN</span></div></div>
+    <figure className="statement-media"><img src={fixtureBench} alt="BPD Innovatech fixture and testing bench" loading="lazy"/><figcaption><span>ACTUAL BUILD</span>BPD Innovatech / Ghaziabad</figcaption></figure>
+  </div></section>;
 }
 
 function Process() {
