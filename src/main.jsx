@@ -29,10 +29,10 @@ const capabilities = [
 ];
 
 const projects = [
-  { n: '01', title: 'Point Grinding Cell', tag: 'Automation / Grinding', image: pointGrinding, copy: 'Grinding station with integrated HMI control, tooling and an enclosed working area.' },
-  { n: '02', title: 'End Annealing Setup', tag: 'Thermal Process', image: annealing, copy: 'Compact thermal-process station designed around operator access and repeatable handling.' },
+  { n: '01', title: 'Point Grinding Cell Machine', tag: 'Automation / Grinding', image: pointGrinding, copy: 'Grinding station with integrated HMI control, tooling and an enclosed working area.' },
+  { n: '02', title: 'End Annealing Setup Machine', tag: 'Thermal Process', image: annealing, copy: 'Compact thermal-process station designed around operator access and repeatable handling.' },
   { n: '03', title: 'HMI Control Machine', tag: 'Controls / HMI', image: hmiMachine, copy: 'Machine controls integrated with guarding, tooling and production hardware.' },
-  { n: '04', title: 'Fixture Test Bench', tag: 'Fixtures / Testing', image: fixtureBench, copy: 'Purpose-built bench for repeatable part handling, testing and process control.' },
+  { n: '04', title: 'Fixture Test Bench Machine', tag: 'Fixtures / Testing', image: fixtureBench, copy: 'Purpose-built bench for repeatable part handling, testing and process control.' },
 ];
 
 function Arrow() {
