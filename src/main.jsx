@@ -44,6 +44,7 @@ function Header() {
   const [active, setActive] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'light');
   const close = () => setOpen(false);
 
   useEffect(() => {
@@ -70,6 +71,14 @@ function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) themeMeta.setAttribute('content', theme === 'dark' ? '#0b171c' : '#fbfaf7');
+    try { window.localStorage.setItem('bpd-theme', theme); } catch { /* Storage can be unavailable in privacy mode. */ }
+  }, [theme]);
+
   const navLink = (id, label) => <a className={active === id ? 'active' : ''} href={`#${id}`} onClick={close} aria-current={active === id ? 'location' : undefined}>{label}</a>;
 
   return <header className={scrolled ? 'nav scrolled' : 'nav'}>
@@ -85,6 +94,9 @@ function Header() {
         {navLink('contact', 'Contact')}
       </nav>
       <div className="nav-actions">
+        <button className="theme-toggle" type="button" onClick={() => setTheme(value => value === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} aria-pressed={theme === 'dark'} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
+          <span className="theme-sun" aria-hidden="true">☀</span><span className="theme-moon" aria-hidden="true">☾</span>
+        </button>
         <a className="nav-phone" href={`tel:${PHONE}`}>Call us <span>{DISPLAY_PHONE}</span></a>
         <a className="nav-cta" href={waUrl()} target="_blank" rel="noreferrer">Discuss a project <Arrow /></a>
       </div>

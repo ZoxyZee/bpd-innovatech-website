@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fbfaf7" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('bpd-theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = savedTheme || (systemDark ? 'dark' : 'light');
+      } catch {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
     <meta name="description" content="BPD Innovatech — industrial automation, special purpose machines, machine design, fixtures and industrial control systems from Ghaziabad, Uttar Pradesh." />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="BPD Innovatech" />
